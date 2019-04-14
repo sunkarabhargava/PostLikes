@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-light navbar-laravel">
+    <div class="container">
+        <a class="navbar-brand" href="#">Jalan Technologies Assessment Test</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>
+<main class="login-form">
+    <div class="cotainer">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">Add Posts Here</div>
+                    <div class="card-body">
+                        <form #postform="ngForm">
+                            <div class="form-group row">
+                                <label for="username" class="col-md-4 col-form-label text-md-right">Post</label>
+                                <div class="col-md-6">
+                                    <input [(ngModel)]="postdata.posttext" #posttext="ngModel" class="form-control"   name="posttext" required="required">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 offset-md-4">
+                                <button type="submit" [disabled]="postform.invalid" (click)="addPost()" class="btn btn-primary">
+                                    Submit
+                                </button>
+                            </div>
+                    
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+<div class="container">
+  <table class="table table-striped">
+      <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Post</th>
+                                    <th>Date Time</th>
+                                    <th>Likes</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+
+            <tr *ngFor="let data of postresults;let i = index">
+                <td>{{i+1}}</td>
+              <td>{{data.posttext}}</td>
+              <td>{{data.createdAt | date:'medium'}}</td>
+              <td>{{data.likes}}</td>
+              <td><button type="button" class="btn " (click)="updatelikes(data)"><i *ngIf="data.likes===0" class="far fa-thumbs-up"></i><i *ngIf="data.likes!=0" class="fas fa-thumbs-up"></i></button></td>
+            </tr>
+                                         <tbody *ngIf="postresults?.length == 0">
+                                <tr>
+                                    <td colspan="5" align="center">No Posts Exists.</td>
+                                </tr>
+                            </tbody>
+          </table>
+</div>
+     
+
+
+<router-outlet></router-outlet>
